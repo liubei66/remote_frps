@@ -1,0 +1,60 @@
+#!/bin/bash
+dir=$PWD
+frps=/usr/local/frps
+frps_script=/etc/init.d/frps
+
+frps_menu ()
+{
+   echo "############1.安装frps###########"
+   echo "############2.卸载frps###########"
+}
+frps_start ()
+{
+read input
+case "$input" in
+
+1 )
+    pid=`ps -ef | grep -v grep | grep -i $frps | awk '{print $2}'`
+    if [ "$pid" ]; then
+    echo "frps is already installed!" && exit 0
+    fi
+    if [ ! -w ${dir}/frps.tar.gz ];then
+    wget -N --no-check-certificate https://github.com/liubei66/remote_frps/raw/master/frps.tar.gz
+    fi
+    tar -xvf ${dir}/frps.tar.gz 2>&1 &
+    sleep 1
+    echo `mv -f "${dir}/frps1/" "$frps"`
+    sleep 1
+    echo `mv -f "${dir}/frps" "$frps_script"`
+    chkconfig frps on && service frps start
+    pid=`ps -ef | grep -v grep | grep -i $frps | awk '{print $2}'`
+    if [ "$pid" ]; then
+    echo "install success!" && exit 0
+    fi
+    echo "install fail!"
+    exit 0
+    ;;
+2 )
+    pid=`ps -ef | grep -v grep | grep -i $frps | awk '{print $2}'`
+    if [ "$pid" ]; then
+    kill -9 "$pid" && echo "stop frps..........."
+    fi
+    if [ -x "$frps_script" ] ; then
+    chkconfig frps off && rm -f $frp_script
+    fi
+    rm -rf $frps && echo "uninstall frps success!"
+    exit 0
+    ;;
+*)
+    echo "输入错误，请重试"
+    time-=1
+    break
+    ;;
+    esac
+}
+time=3
+while [ time>0 ] ; do
+frps_menu
+frps_start
+done
+exit 0
