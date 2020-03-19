@@ -47,14 +47,13 @@ case "$input" in
     ;;
 *)
     echo "输入错误，请重试"
-    time-=1
-    break
     ;;
     esac
 }
-time=3
-while [ time>0 ] ; do
-frps_menu
-frps_start
+for((i=1;i<=3;i++)) ; 
+do
+frps_menu;
+frps_start;
 done
+echo "尝试超过三次，程序退出！"
 exit 0
