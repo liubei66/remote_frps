@@ -43,7 +43,7 @@ case "$input" in
     if [ ! -w ${dir}/frps.tar.gz ];then
     wget -N --no-check-certificate https://github.com/liubei66/remote_frps/raw/master/frps.tar.gz
     fi
-    tar -xvf ${dir}/frps.tar.gz 2>&1 &
+    tar -xvf ${dir}/frps.tar.gz 1>/dev/null 2>&1
     sleep 1
     echo `mv -f "${dir}/frps1/" "$frps"`
     sleep 1
