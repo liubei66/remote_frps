@@ -3,6 +3,28 @@ dir=$PWD
 frps=/usr/local/frps
 frps_script=/etc/init.d/frps
 
+#自己定义修改参数
+####################################################################
+#监听端口
+bind_port=9170
+#认证口令
+token=pjk
+#kcp监听端口
+kcp_bind_port=9170
+#udp监听端口
+bind_udp_port=9171
+#web面板监听端口
+dashboard_port=7500
+#web面板用户名和密码
+dashboard_user=jk
+dashboard_pwd=19960915
+#日志文件处理
+log_file=/usr/local/frps/frps.log
+log_level=error
+log_max_days=2
+###################################################################
+
+
 frps_menu ()
 {
    echo "############1.安装frps###########"
@@ -26,6 +48,18 @@ case "$input" in
     echo `mv -f "${dir}/frps1/" "$frps"`
     sleep 1
     echo `mv -f "${dir}/frps" "$frps_script"`
+    #配置文件修改
+    sed -i "/^bind_port/cbind_port = ${bind_port}" ${frps}/frps.ini
+    sed -i "/^token/ctoken = ${token}" ${frps}/frps.ini
+    sed -i "/^kcp_bind_port/ckcp_bind_port = ${kcp_bind_port}" ${frps}/frps.ini
+    sed -i "/^bind_udp_port/cbind_udp_port = ${bind_udp_port}" ${frps}/frps.ini
+    sed -i "/^dashboard_port/cdashboard_port = ${dashboard_port}" ${frps}/frps.ini
+    sed -i "/^dashboard_user/cdashboard_user = ${dashboard_user}" ${frps}/frps.ini
+    sed -i "/^dashboard_pwd/cdashboard_pwd = ${dashboard_pwd}" ${frps}/frps.ini
+    sed -i "/^log_file/clog_file = ${log_file}" ${frps}/frps.ini
+    sed -i "/^log_level/clog_level = ${log_level}" ${frps}/frps.ini
+    sed -i "/^log_max_days/clog_max_days = ${log_max_days}" ${frps}/frps.ini
+
     chkconfig frps on && service frps start
     pid=`ps -ef | grep -v grep | grep -i $frps | awk '{print $2}'`
     if [ "$pid" ]; then
