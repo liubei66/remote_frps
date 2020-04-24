@@ -12,7 +12,6 @@ start ()
 {
 read input
 case "$input" in
-
 1 )
     if [ ! -w ${dir}/install_frps ];then
     wget -N --no-check-certificate https://github.com/liubei66/remote_frps/raw/master/install_frps && chmod +x install_frps && bash install_frps
