@@ -2,7 +2,6 @@
 dir=$PWD
 frps=/usr/local/frps
 frps_script=/etc/init.d/frps
-
 #自定义修改参数
 ####################################################################
 #监听端口
@@ -23,8 +22,6 @@ log_file=/usr/local/frps/frps.log
 log_level=error
 log_max_days=2
 ###################################################################
-
-
 frps_menu ()
 {
    echo "############1.安装frps###########"
@@ -34,7 +31,6 @@ frps_start ()
 {
 read input
 case "$input" in
-
 1 )
     pid=`ps -ef | grep -v grep | grep -i $frps | awk '{print $2}'`
     if [ "$pid" ]; then
@@ -59,7 +55,6 @@ case "$input" in
     sed -i "/^log_file/clog_file = ${log_file}" ${frps}/frps.ini
     sed -i "/^log_level/clog_level = ${log_level}" ${frps}/frps.ini
     sed -i "/^log_max_days/clog_max_days = ${log_max_days}" ${frps}/frps.ini
-
     chkconfig frps on && service frps start
     pid=`ps -ef | grep -v grep | grep -i $frps | awk '{print $2}'`
     if [ "$pid" ]; then
