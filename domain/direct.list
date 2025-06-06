@@ -1,14 +1,14 @@
 #################
 #DOMAIN-KEYWORD
 #DOMAIN
-#DOMAIN_SUFFIX
+#DOMAIN-SUFFIX
 #IP-CIDR
 #################
 DOMAIN,api.nn.ci
 DOMAIN,mb3admin.com
-DOMAIN_SUFFIX,pengjikong.top
+DOMAIN-SUFFIX,pengjikong.top
 #jav
-DOMAIN_SUFFIX,dmm.co.jp
-DOMAIN_SUFFIX,jdbstatic.com
-DOMAIN_SUFFIX,services.googleapis.cn
+DOMAIN-SUFFIX,dmm.co.jp
+DOMAIN-SUFFIX,jdbstatic.com
+DOMAIN-SUFFIX,services.googleapis.cn
 
